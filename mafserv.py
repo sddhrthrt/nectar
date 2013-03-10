@@ -8,6 +8,7 @@
 
 import SocketServer
 from maflib import *
+from getcurrentip import getCurrentIP
 
 class maf_handler(SocketServer.BaseRequestHandler):
     def handle(self):
@@ -17,13 +18,13 @@ class maf_handler(SocketServer.BaseRequestHandler):
         print "From client:", self.client_address
         f = self.request.makefile()
         agent = cPickle.load(f)
-        agent.localip = gethostname()
+        agent.localip = getCurrentIP(agent.masterip)
         agent.compLocal()
         agent.dispInfo()
         if (migrate(agent) == 0):
             print "\t Agent mission acomplished"
             return 0
-        
+
 def syncServer():
     serv = SocketServer.TCPServer(("",50001), maf_handler)
     try:
@@ -31,7 +32,7 @@ def syncServer():
         serv.serve_forever()
     except KeyboardInterrupt:
         goodbye()
-   
+
 # def asyncServer():
 
 
