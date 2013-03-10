@@ -2,6 +2,7 @@
 # define a specialized agent which knows how to collect
 # hard disk usage statistics
 #
+from getcurrentip import getCurrentIP
 
 class DiskAgent:
 
@@ -13,7 +14,8 @@ class DiskAgent:
         self.totalfree = 0
         self.route = route
         self.hops = 0
-        self.localip = "192.168.56.1"
+        #use the masterip, create a socket, see it's ip.
+        self.localip = getCurrentIP(masterip)
         self.plusval = PlusAgent.selfplus(0)
 
     def dispInfo(self):
