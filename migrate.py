@@ -40,7 +40,10 @@ def nexthop(agent):
     #elif (agent.localip == lastip) and (agent.hops!=0):
     #    print "\t Local ip is the last item, stop migration"
     #    return 0
-    elif (agent.localip == lastip) and (agent.hops==0):
+    elif (agent.localip == lastip) and (agent.hops!=0):
+        print "\t Local ip is the last item, stop migration"
+        return 0
+    elif agent.hops==0:
         print "\t A very first hop, just first ip"
         return agent.route[0]
     else:
@@ -61,7 +64,7 @@ def migrate(agent):
         return -1
     elif nextip == 0:
         print "\t ==== ====================== ==="
-        print "\t ==== Agent Finally Returned ==="
+        print "\t ==== Agent Work Done        ==="
         print "\t ==== ====================== ==="
         agent.dispInfo()
         return 0
