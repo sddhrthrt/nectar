@@ -44,6 +44,7 @@ def nexthop(agent):
     #    print "\t A very first hop, just first ip"
     #    return agent.route[0]
     #else:
+    print agent.localip
     nextip = agent.route[agent.route.index(agent.localip) + 1]
     print "\tNormal case, return next ip", nextip
     return nextip

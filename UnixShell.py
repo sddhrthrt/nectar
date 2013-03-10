@@ -5,14 +5,13 @@
 #
 #
 import os, popen2, fcntl,  select
-FCNTL = fcntl.FCNTL
 
 def makeNonBlocking(fd):
-    fl = fcntl.fcntl(fd, FCNTL.F_GETFL)
+    fl = fcntl.fcntl(fd, fcntl.F_GETFL)
     try:
-        fcntl.fcntl(fd, FCNTL.F_SETFL, fl | FCNTL.O_NDELAY)
+        fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.O_NDELAY)
     except AttributeError:
-        fcntl.fcntl(fd, FCNTL.F_SETFL, fl )
+        fcntl.fcntl(fd, fcntl.F_SETFL, fl )
 
 def getCommandOutput(command):
     # capture stdout and stderr from command
