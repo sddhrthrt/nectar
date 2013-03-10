@@ -31,16 +31,16 @@ def nexthop(agent):
 
     lastip = agent.route[len(agent.route) - 1]
 
-    if agent.localip not in agent.route:
-        print "\t Something is wrong, local ip is NOT in route, abort!"
-        return -1
+    #if agent.localip not in agent.route:
+        #print "\t Something is wrong, local ip is NOT in route, abort!"
+        #return -1
     #elif (agent.localip == agent.route[0]) and (len(agent.route)==1):
     #    print "\t Local ip is the only item, stop migration"
     #    return 0
     #elif (agent.localip == lastip) and (agent.hops!=0):
     #    print "\t Local ip is the last item, stop migration"
     #    return 0
-    elif (agent.localip == lastip) and (agent.hops!=0):
+    if (agent.localip == lastip) and (agent.hops!=0):
         print "\t Local ip is the last item, stop migration"
         return 0
     elif agent.hops==0:
