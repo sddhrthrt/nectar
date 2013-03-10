@@ -3,6 +3,7 @@
 # hard disk usage statistics
 #
 from getcurrentip import getCurrentIP
+from time import sleep
 
 class DiskAgent:
 
@@ -36,6 +37,8 @@ class DiskAgent:
         import UnixShell, string, StringIO, PlusAgent
         # Plus work
         self.plusval = PlusAgent.selfplus(self.plusval)
+        #first sleep and take some rest.
+        sleep(2)
         # do some real work here
         result = UnixShell.getCommandOutput("df")
         fd = StringIO.StringIO(result)
