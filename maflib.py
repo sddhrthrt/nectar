@@ -54,7 +54,7 @@ def sndTCPFile(file, ipaddr, port):
               "bytes has been sent to ", ipaddr
         return 0
     else:
-        print "\n\n\t\t=> Oh, no, couldn't connected with ", ipaddr
+        print "\n\n\t\t=> Oh, no, couldn't connect with ", ipaddr
         return -1
     
 
