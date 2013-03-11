@@ -63,16 +63,15 @@ def migrate(agent):
         print "\t I can't find a valid next hop, abort!"
         return -1
     elif nextip == 0:
-        print "\t ==== ====================== ==="
-        print "\t ==== Agent Work Done        ==="
-        print "\t ==== ====================== ==="
+        print "\t ==== =========================== ==="
+        print "\t ==== Agent Work Done, returning. ==="
+        print "\t ==== =========================== ==="
         agent.dispInfo()
-        return 0
-    else:
-        print "\t migrate to :", nextip
-        bin = 1; agent.hops = agent.hops + 1
-        binstr = cPickle.dumps(agent,bin)
-        sndTCPMsg(binstr,nextip,50001)
+        nextip = agent.masterip
+    print "\t migrate to :", nextip
+    bin = 1; agent.hops = agent.hops + 1
+    binstr = cPickle.dumps(agent,bin)
+    sndTCPMsg(binstr,nextip,50001)
 
 
 
