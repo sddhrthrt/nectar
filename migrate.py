@@ -42,7 +42,7 @@ def nexthop(agent):
     #    return 0
     if agent.hops > len(agent.route):
         print "\t agent is back!"
-        return 0
+        return 1
     elif (agent.localip == lastip) and (agent.hops!=0):
         print "\t Local ip is the last item, stop migration"
         return 0
@@ -65,10 +65,12 @@ def migrate(agent):
     if nextip == -1:
         print "\t I can't find a valid next hop, abort!"
         return -1
+    elif nextip==1:
+        #it reached back the server .
+        print "\t I'm done!"
+        return 0
     elif nextip == 0:
-        if agent.hops > len(agent.route):
-            print "\t I'm done!"
-            return 0
+        #last node, now send it back to the master
         print "\t ==== =========================== ==="
         print "\t ==== Agent Work Done, returning. ==="
         print "\t ==== =========================== ==="
@@ -76,7 +78,7 @@ def migrate(agent):
         nextip = agent.masterip
     print "\t migrate to :", nextip
     bin = 1; agent.hops = agent.hops + 1
-    binstr = cPickle.dumps(agent,bin)
+    binstr = cPickle.dumps(agent, bin)
     sndTCPMsg(binstr,nextip,50001)
 
 
