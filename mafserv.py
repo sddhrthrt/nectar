@@ -24,9 +24,8 @@ class maf_handler(SocketServer.BaseRequestHandler):
         try:
             agent.compute()
             agent.dispInfo()
-        except e:
+        except:
             print "Agent execution on host failed."
-            print e
             return -1
         if (migrate(agent) == 0):
             print "\t Agent mission acomplished"
