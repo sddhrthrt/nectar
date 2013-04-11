@@ -7,10 +7,10 @@ from CompLocal import CompLocal
 
 class DiskAgent:
 
-    def __init__(self,masterip,route):
+    def __init__(self, masterip, route):
         from socket import *
+        #Path
         self.masterip = masterip
-        self.totalfree = 0
         self.route = route
         self.hops = 0
         #use the masterip, create a socket, see it's ip.
