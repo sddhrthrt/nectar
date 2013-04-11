@@ -8,7 +8,6 @@ from CompLocal import CompLocal
 class DiskAgent:
 
     def __init__(self, masterip, route):
-        from socket import *
         #Path
         self.masterip = masterip
         self.route = route
