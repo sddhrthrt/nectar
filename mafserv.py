@@ -17,7 +17,9 @@ class maf_handler(SocketServer.BaseRequestHandler):
         print "Receving incoming agent, verification is in process ..."
         print "From client:", self.client_address
         f = self.request.makefile()
-        agent = cPickle.load(f)
+        career = cPickle.load(f)
+        agent = career.unloadAgent()
+        #Welcome!
         agent.localip = getCurrentIP(agent.masterip)
         try:
             agent.compute()

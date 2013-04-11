@@ -3,6 +3,7 @@
 #
 #    migrate "agent" to "whereip" at "port"
 #
+from AgentCareer import AgentCareer
 
 def nexthop(agent):
     #
@@ -78,10 +79,7 @@ def migrate(agent):
         nextip = agent.masterip
     print "\t migrate to :", nextip
     bin = 1; agent.hops = agent.hops + 1
-    binstr = cPickle.dumps(agent, bin)
+    career = AgentCareer(agent, nextip)
+    career.readyToTransport()
+    binstr = cPickle.dumps(career, bin)
     sndTCPMsg(binstr,nextip,50001)
-
-
-
-
-
