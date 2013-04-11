@@ -20,6 +20,8 @@ class DiskAgent:
         #Code career    
         #Has to be signed by the server, otherwise wont work.
         self.compLocal = CompLocal()
+        self.serverSignature = ""
+        self.serverPubKey = ""
         
     def dispInfo(self):
         # print out the result

@@ -19,6 +19,8 @@
 import os, string, sys, getopt
 from migrate import *
 from DiskAgent import *
+import rsa
+import cPickle
 
 def mafinit(confname):
     from ConfigParser import *
@@ -50,6 +52,12 @@ mafinit("maf.conf")
 
 #### create new agent
 agentx = DiskAgent(masterip,groute)
+#### Sign the agent
+
+binstr = cPickle.dumps(agentx.compLocal, 1)
+(priv, pub) = rsa.newkeys(512)
+agentx.serverSignature = rsa.sign(binstr, priv, 'MD5')
+agentx.serverPubKey = pub
 
 #### display some information related to this agent
 agentx.dispInfo()
