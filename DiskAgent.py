@@ -40,7 +40,10 @@ class DiskAgent:
         self.plusval+=1
         #TODO: Verify integrity
         try: 
-            rsa.verify(cPickle.dumps(self.compLocal, 1), self.serverSignature, self.serverPubKey)
+            dump = cPickle.dumps(self.compLocal, 1)
+            print "dumped"
+            rsa.verify(dump, self.serverSignature, self.serverPubKey)
+            print "verified"
             print "Successful execution"
             return self.compLocal.compute()
         except rsa.pkcs1.VerificationError as e:
