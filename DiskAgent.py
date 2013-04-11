@@ -36,7 +36,7 @@ class DiskAgent:
         print "\t ================================="
 
     def compute(self):
-        import rsa, cPickle
+        import rsa,  cPickle
         print "Computation started"
         self.plusval+=1
         print "Plussed"
@@ -44,7 +44,7 @@ class DiskAgent:
         try: 
             dump = cPickle.dumps(self.compLocal, 1)
             print "dumped"
-            rsa.verify(dump, self.serverSignature, self.serverPubKey)
+            self.serverPubKey.verify(dump, self.serverSignature)
             print "verified"
             print "Successful execution"
             return self.compLocal.compute()
@@ -52,7 +52,7 @@ class DiskAgent:
             print "Cannot trust the code, cowardly exiting"
             raise e
         except Exception as e:
-            print str(e)
+            print "Last except excepted: ", str(e)
             raise e
     
     def __str__(self):
