@@ -1,4 +1,4 @@
-#
+
 # define a specialized agent which knows how to collect
 # hard disk usage statistics
 #
@@ -9,18 +9,16 @@ class DiskAgent:
 
     def __init__(self,masterip,route):
         from socket import *
-        import PlusAgent
-
         self.masterip = masterip
         self.totalfree = 0
         self.route = route
         self.hops = 0
         #use the masterip, create a socket, see it's ip.
         self.localip = getCurrentIP(masterip)
-        self.plusval = PlusAgent.selfplus(0)
-
+        #DON'T KNOW
+        self.plusval = 1 
+        
     def dispInfo(self):
-        import PlusAgent
         # print out the result
         print "\t ================================="
         print "\t         Agent Information        "
@@ -30,7 +28,7 @@ class DiskAgent:
         print "\t master ip is:", self.masterip
         print "\t current hops is:",self.hops
         print "\t planned route is:", self.route
-        print "\t self plus result is", PlusAgent.dispvar()
+        print "\t self plus result is", self.plusval
         print "\t ================================="
 
     def compLocal(self):
