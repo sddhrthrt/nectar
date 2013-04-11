@@ -3,7 +3,6 @@
 # hard disk usage statistics
 #
 from getcurrentip import getCurrentIP
-from time import sleep
 
 class DiskAgent:
 
