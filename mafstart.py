@@ -38,6 +38,7 @@ def mafinit(confname):
         # to travel, just make life a bit easier, can be skipped
         i = 0
         masterip = cp.get("master","masterip")
+        print "Masterip:", masterip
         hops = cp.getint("itinerary", "hops")
         while hops > 0:
             attrname = "node" + str(i)
@@ -58,7 +59,6 @@ binstr = cPickle.dumps(agentx.compLocal, 1)
 _privkey = getPrivateKey(masterip)
 _pubkey = getPublicKey(masterip)
 agentx.serverSignature = _privkey.sign(binstr, b'')[0]
-agentx.serverPubKey = _pubkey 
 
 #### display some information related to this agent
 agentx.dispInfo()

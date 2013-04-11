@@ -20,7 +20,6 @@ class DiskAgent:
         #Has to be signed by the server, otherwise wont work.
         self.compLocal = CompLocal()
         self.serverSignature = ""
-        self.serverPubKey = ""
         
     def dispInfo(self):
         # print out the result
@@ -37,27 +36,29 @@ class DiskAgent:
 
     def compute(self):
         import rsa,  cPickle
+        from KeyServer import getPublicKey
+        from CompLocal import CompLocal
         print "Computation started"
         self.plusval+=1
         print "Plussed"
         #TODO: Verify integrity
         try: 
             dump = cPickle.dumps(self.compLocal, 1)
-            print "dumped"
-            self.serverPubKey.verify(dump, self.serverSignature)
-            print "verified"
-            print "Successful execution"
-            return self.compLocal.compute()
+            _serverPubKey = getPublicKey(self.masterip)
+            _serverPubKey.verify(dump, (self.serverSignature,))
+            if isinstance(self.compLocal, CompLocal):
+                return self.compLocal.compute()
+            else:
+                return -1
+
         except rsa.pkcs1.VerificationError as e:
             print "Cannot trust the code, cowardly exiting"
             raise e
+
         except Exception as e:
             print "Last except excepted: ", str(e)
             raise e
     
-    def __str__(self):
-        return str(self.__dict__)
-
     def __eq__(self, other):
         print "comparing"
         return self.__dict__ == other.__dict__

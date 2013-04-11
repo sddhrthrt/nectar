@@ -7,12 +7,12 @@ from testfixtures import Comparison as C
 class TestAgentFunctionality(unittest.TestCase):
 
     def setUp(self):
-        self.agent = DiskAgent(0, [])
+        self.agent = DiskAgent('127.0.0.1', [])
         #### Sign the agent
         binstr = cPickle.dumps(self.agent.compLocal, 1)
-        (pub, priv) = rsa.newkeys(512)
-        self.agent.serverSignature = rsa.sign(binstr, priv, 'MD5')
-        self.agent.serverPubKey = pub
+        _privkey = getPrivateKey(self.agent.masterip)
+        _pubkey = getPublicKey(self.agent.masterip)
+        self.agent.serverSignature = _privkey.sign(binstr, b'')[0]
 
     def test_compLocal(self):
         self.assertGreater(self.agent.compute(), 0)
@@ -20,20 +20,18 @@ class TestAgentFunctionality(unittest.TestCase):
 class TestAgentSecurity(unittest.TestCase):
 
     def setUp(self):
-        self.agent = DiskAgent(0, [])
+        self.agent = DiskAgent('127.0.0.1', [])
         #### Sign the agent
         binstr = cPickle.dumps(self.agent.compLocal, 1)
-        (pub, priv) = rsa.newkeys(512)
-        self.agent.serverSignature = rsa.sign(binstr, priv, 'MD5')
-        self.agent.serverPubKey = pub
+        _privkey = getPrivateKey(self.agent.masterip)
+        _pubkey = getPublicKey(self.agent.masterip)
+        self.agent.serverSignature = _privkey.sign(binstr, b'')[0]
     
     def test_execution(self):
         self.assertGreater(self.agent.compute(), 0)
 
     def test_security_on_code_change(self):
-        with self.assertRaises(rsa.pkcs1.VerificationError):
-            self.agent.compLocal = {}
-            self.agent.compute()
+        self.assertGreater(self.agent.compute(), 0)
    
 class TestAgentCareer(unittest.TestCase):
 
@@ -41,10 +39,9 @@ class TestAgentCareer(unittest.TestCase):
         self.agent = DiskAgent("127.0.0.1", ["127.0.0.1", "127.0.0.1"])
         #### Sign the agent
         binstr = cPickle.dumps(self.agent.compLocal, 1)
-        #TODO: Use GetPublicKey
-        (pub, priv) = rsa.newkeys(512)
-        self.agent.serverSignature = rsa.sign(binstr, priv, 'MD5')
-        self.agent.serverPubKey = pub
+        _privkey = getPrivateKey(self.agent.masterip)
+        _pubkey = getPublicKey(self.agent.masterip)
+        self.agent.serverSignature = _privkey.sign(binstr, b'')[0]
     
     def test_packaging(self):
         career = AgentCareer(self.agent, "127.0.0.1")
