@@ -19,8 +19,13 @@ class maf_handler(SocketServer.BaseRequestHandler):
         f = self.request.makefile()
         agent = cPickle.load(f)
         agent.localip = getCurrentIP(agent.masterip)
-        agent.compLocal()
-        agent.dispInfo()
+        try:
+            agent.compute()
+            agent.dispInfo()
+        except e:
+            print "Agent execution on host failed."
+            print e
+            return -1
         if (migrate(agent) == 0):
             print "\t Agent mission acomplished"
             return 0
