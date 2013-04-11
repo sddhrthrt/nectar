@@ -19,8 +19,8 @@
 import os, string, sys, getopt
 from migrate import *
 from DiskAgent import *
-import rsa
 import cPickle
+from KeyServer import getPrivateKey, getPublicKey
 
 def mafinit(confname):
     from ConfigParser import *
@@ -55,9 +55,10 @@ agentx = DiskAgent(masterip,groute)
 #### Sign the agent
 
 binstr = cPickle.dumps(agentx.compLocal, 1)
-(priv, pub) = rsa.newkeys(512)
-agentx.serverSignature = rsa.sign(binstr, priv, 'MD5')
-agentx.serverPubKey = pub
+_privkey = getPrivateKey(masterip)
+_pubkey = getPublicKey(masterip)
+agentx.serverSignature = _privkey.sign(binstr, b'')[0]
+agentx.serverPubKey = _pubkey 
 
 #### display some information related to this agent
 agentx.dispInfo()
