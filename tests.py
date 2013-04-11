@@ -46,8 +46,9 @@ class TestAgentCareer(unittest.TestCase):
         self.agent.serverSignature = rsa.sign(binstr, priv, 'MD5')
         self.agent.serverPubKey = pub
     
-    #def test_packaging(self):
-        #career = AgentCareer(self.agent, "127.0.0.1")
-        #career.readyToTransport()
-        #agent = career.unloadAgent()
-        #self.assertEqual(C(agent), self.agent)
+    def test_packaging(self):
+        career = AgentCareer(self.agent, "127.0.0.1")
+        career.readyToTransport()
+        agent = career.unloadAgent()
+        self.maxDiff= None
+        self.assertEqual(agent.__dict__, self.agent.__dict__)
