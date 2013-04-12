@@ -23,16 +23,16 @@ class DiskAgent:
         
     def dispInfo(self):
         # print out the result
-        print "\t ================================="
-        print "\t         Agent Information        "
-        print "\t ================================="
-        print "\t free disk space:", self.compLocal.totalfree
-        print "\t local ip is :", self.localip
-        print "\t master ip is:", self.masterip
-        print "\t current hops is:",self.hops
-        print "\t planned route is:", self.route
-        print "\t self plus result is", self.plusval
-        print "\t ================================="
+        print "================================="
+        print "        Agent Information        "
+        print "================================="
+        print "free disk space:", self.compLocal.totalfree
+        print "local ip is :", self.localip
+        print "master ip is:", self.masterip
+        print "current hops is:",self.hops
+        print "planned route is:", self.route
+        print "self plus result is", self.plusval
+        print "================================="
 
     def compute(self):
         import rsa,  cPickle
