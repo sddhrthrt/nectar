@@ -20,7 +20,7 @@ class CompLocal:
                 elif len(words) == 5:
                     self.totalfree = self.totalfree + [int(words[2])]
                 else:
-                    print "\t Unexpected output from shell"
+                    print "Unexpected output from shell"
         self.totalfree = [sum(self.totalfree), ]
         return self.totalfree
 

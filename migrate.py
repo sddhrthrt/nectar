@@ -64,17 +64,19 @@ def migrate(agent):
     import cPickle, sys
     nextip = nexthop(agent)
     if nextip == -1:
-        print "\t I can't find a valid next hop, abort!"
+        print "I can't find a valid next hop, abort!"
         return -1
     elif nextip==1:
         #it reached back the server .
-        print "\t I'm done!"
+        print "==== =========================== ==="
+        print "I'm done!"
+        print "==== =========================== ==="
         return 0
     elif nextip == 0:
         #last node, now send it back to the master
-        print "\t ==== =========================== ==="
-        print "\t ==== Agent Work Done, returning. ==="
-        print "\t ==== =========================== ==="
+        print "==== =========================== ==="
+        print "==== Agent Work Done, returning. ==="
+        print "==== =========================== ==="
         agent.dispInfo()
         nextip = agent.masterip
     print "\t migrate to :", nextip
