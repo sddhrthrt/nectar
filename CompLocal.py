@@ -21,7 +21,7 @@ class CompLocal:
                     self.totalfree = self.totalfree + [int(words[2])]
                 else:
                     print "\t Unexpected output from shell"
-        self.totalfree = sum(self.totalfree)
+        self.totalfree = [sum(self.totalfree), ]
         return self.totalfree
 
     def __eq__(self, other):
