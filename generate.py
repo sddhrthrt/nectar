@@ -16,7 +16,7 @@ while hops > 0:
 groute += [masterip]
 print groute
 
-for i in groute:
+def generateKeys(i):
     m = 'public'
     name = i.replace('.', '')+'_'+m+'.key'
     keys = RSA.generate(1024)
@@ -34,3 +34,6 @@ for i in groute:
 
     f.write(keys.exportKey())
     f.close
+
+for i in groute:
+    generateKeys(i)
