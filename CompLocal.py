@@ -4,7 +4,11 @@ class CompLocal:
         return
 
     def compute(self):
+        from time import sleep
         import UnixShell, string, StringIO
+        #sleep
+        print "sleeping..."
+        sleep(2)
         # do some real work here
         result = UnixShell.getCommandOutput("df")
         fd = StringIO.StringIO(result)
